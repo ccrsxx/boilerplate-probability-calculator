@@ -3,7 +3,6 @@ import random
 # Consider using the modules imported above.
 
 class Hat:
-    pass
+    
+    def __init__(self, **colors):
 
-def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    pass
