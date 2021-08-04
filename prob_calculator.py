@@ -8,20 +8,27 @@ class Hat:
 
     def draw(self, draw):
         if draw > len(self.contents):
-            return self.contents
+            self.contents, poped_list = [], self.contents
+            return poped_list
         return [self.contents.pop(random.randrange(len(self.contents))) for _ in range(draw)]
 
-def experiment(hat, num_balls_drawn, num_experiments, **expected_balls):
-    pass
-
-
-x = Hat(red=5, orange=3, black=2)
-
-# shit = {}
-# sample = x.draw(10)
-# for i in sample:
-#     shit[i] = shit.get(i, 0) + 1
-# print('up', shit)
-
-# check = {i: sample.count(i) for i in sample}
-# print(check)
+def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
+    many = 0
+    for _ in range(num_experiments):
+        same = {}
+        cls = copy.deepcopy(hat)
+        data = cls.draw(num_balls_drawn)
+        for color in data:
+            if color in expected_balls:
+                same[color] = same.get(color, 0) + 1
+        if len(same) != len(expected_balls):
+            continue
+        for k, v in expected_balls.items():
+            exact = False
+            if same[k] >= v:
+                exact = True
+            else:
+                break
+        if exact:
+            many += 1
+    return many / num_experiments
