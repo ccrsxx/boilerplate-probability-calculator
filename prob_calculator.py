@@ -7,7 +7,7 @@ class Hat:
         self.contents = [color for color, draw in colors.items() for _ in range(draw)]
 
     def draw(self, draw):
-        if draw > len(self.contents):
+        if draw >= len(self.contents):
             self.contents, poped_list = [], self.contents
             return poped_list
         return [self.contents.pop(random.randrange(len(self.contents))) for _ in range(draw)]
